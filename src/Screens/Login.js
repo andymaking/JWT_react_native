@@ -1,15 +1,19 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import styles from "../component/styles";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import SafeAreaView from 'react-native-safe-area-view';
 import {Button, SocialIcon} from "@rneui/base";
+import {AuthContext} from "../context/AuthContext";
 
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const dataContext = useContext(AuthContext);
+
 
     return (
         <SafeAreaView style={styles2.container}>
@@ -27,7 +31,13 @@ const Login = ({navigation}) => {
                         <Text style={{fontWeight: "700", fontSize: 17, color: '#AD40AF'}}>Forgot?</Text>
                     </TouchableOpacity>
                 </View>
-                <Button title={'Log in'} buttonStyle={{height: 50, borderRadius: 5, backgroundColor: '#AD40AF'}} />
+                <Button onPress={()=> {
+                    console.log('Go home')
+                    dataContext.login();
+                }}
+                        title={'Log in'}
+                        buttonStyle={{height: 50, borderRadius: 5, backgroundColor: '#AD40AF'}}
+                />
                 <Text style={{marginVertical: 10, textAlign: 'center', color: '#666'}}>Or, log in with...</Text>
                 <View style={styles2.flex}>
                     <TouchableOpacity>
