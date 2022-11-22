@@ -7,9 +7,10 @@ import {AntDesign} from "@expo/vector-icons";
 import CustomSwitch from "../component/CustomSwitch";
 import {AppContext} from "../context/AppContext";
 import ListItem from "../component/ListItem";
+import Spinner from "react-native-loading-spinner-overlay/src";
 
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
 
     const dataContext = useContext(AuthContext)
 
@@ -19,6 +20,7 @@ const HomeScreen = () => {
 
     const dataContext2 = useContext(AppContext)
     const articles = dataContext2.articles;
+    const isLoading = dataContext2.isLoading;
 
     const onSelectSwitch = (value) =>{
         getGamesTab(value)
@@ -26,9 +28,12 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={styles2.container}>
+            <Spinner visible={isLoading} />
             <View style={styles2.flex}>
                 <Text style={{fontSize: 18}}>Hello <Text>{dataContext.userToken}</Text></Text>
-                <Image source={require('../../assets/Images/user.png')} style={{height:30, width: 30}}/>
+                <TouchableOpacity onPress={()=>navigation.openDrawer()}>
+                    <Image source={require('../../assets/Images/user.png')} style={{height:30, width: 30}}/>
+                </TouchableOpacity>
             </View>
             <View style={styles2.input}>
                 <AntDesign name="search1" size={20} color="grey" />
@@ -78,7 +83,7 @@ const styles2 = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal: 16,
-        paddingVertical: 20
+        paddingTop: 40,
     },
     flex:{
         flexDirection: "row",

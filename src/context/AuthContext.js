@@ -10,13 +10,21 @@ export const AuthProvider = ({children}) =>{
     const [userToken, setUserToken] = useState(null)
 
     const login = () =>{
+        setIsLoading(true)
         console.log(userToken)
         setUserToken("Bring it on")
         console.log(userToken)
+        setIsLoading(false)
+    }
+
+    const logout =() =>{
+        setIsLoading(true)
+        setUserToken(null)
+        setIsLoading(false)
     }
 
     return(
-        <AuthContext.Provider value={{login, isLoading,splashLoading, userToken}}>
+        <AuthContext.Provider value={{login, isLoading,splashLoading, userToken, logout}}>
             {children}
         </AuthContext.Provider>
     )
