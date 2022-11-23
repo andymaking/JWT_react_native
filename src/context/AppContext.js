@@ -9,7 +9,6 @@ export const AppProvider = ({children}) =>{
     const [articles, setArticles]= useState([])
 
     const getNews = (search)=>{
-        setIsLoading(true)
         axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=59e6977e04aa41ffbf62251db3334b28', {
             params:{
                 category: 'technology',

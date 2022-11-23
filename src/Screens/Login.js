@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import SafeAreaView from 'react-native-safe-area-view';
 import {Button, SocialIcon} from "@rneui/base";
 import {AuthContext} from "../context/AuthContext";
+import Spinner from "react-native-loading-spinner-overlay/src";
 
 
 const Login = ({navigation}) => {
@@ -17,12 +18,13 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles2.container}>
+            <Spinner visible={dataContext.isLoading} color={'#AD40AF'} size={70} />
             <View style={{paddingHorizontal: 20}}>
                 <Image style={{height: 200, width: 200, alignSelf:'center', transform:[{rotate: '-5deg'}]}} source={require('../../assets/Images/login.jpg')} />
                 <Text style={styles.header}>Login</Text>
                 <View style={styles.input}>
                     <MaterialCommunityIcons name="email-send-outline" size={24} color="black" />
-                    <TextInput style={{marginLeft: 10}} placeholder={"Enter Email"} value={email} onChangeText={(text)=>setEmail(text)}/>
+                    <TextInput keyboardType={"email-address"} style={{marginLeft: 10}} placeholder={"Enter Email"} value={email} onChangeText={(text)=>setEmail(text)}/>
                 </View>
                 <View style={[styles.input, {justifyContent: 'space-between' }]}>
                     <MaterialCommunityIcons name="form-textbox-password" size={24} color="black" />
@@ -33,7 +35,7 @@ const Login = ({navigation}) => {
                 </View>
                 <Button onPress={()=> {
                     console.log('Go home')
-                    dataContext.login();
+                    dataContext.login(email, password);
                 }}
                         title={'Log in'}
                         buttonStyle={{height: 50, borderRadius: 5, backgroundColor: '#AD40AF'}}

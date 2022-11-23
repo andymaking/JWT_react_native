@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import styles from "../component/styles";
@@ -6,6 +6,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import SafeAreaView from 'react-native-safe-area-view';
 import {Button, SocialIcon} from "@rneui/base";
 import { FontAwesome5, AntDesign, Feather } from '@expo/vector-icons';
+import {AuthContext} from "../context/AuthContext";
+import Spinner from "react-native-loading-spinner-overlay/src";
 
 
 const Register = ({navigation}) => {
@@ -18,8 +20,15 @@ const Register = ({navigation}) => {
     const [securePass, setSecurePass] = useState(true);
     const [confirmSecurePass, setConfirmSecurePass] = useState(true);
 
+    const dataContext = useContext(AuthContext);
+
+    const navigations = () => {
+      navigation.navigate("Login")
+    }
+
     return (
         <SafeAreaView style={styles2.container}>
+            <Spinner visible={dataContext.isLoading} color={'#AD40AF'} size={70} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{paddingHorizontal: 20, marginVertical: 30}}>
                     <Image style={{height: 200, width: 200, alignSelf:'center', transform:[{rotate: '-5deg'}]}} source={require('../../assets/Images/SignUp.jpg')} />
@@ -85,7 +94,9 @@ const Register = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
 
-                    <Button title={'Sign up'} buttonStyle={{height: 50, borderRadius: 5, backgroundColor: '#AD40AF'}} />
+                    <Button onPress={()=>{
+                        dataContext.register(navigations() ,firstName, lastName, email, phoneNumber, password, confirmPassword)
+                    }} title={'Sign up'} buttonStyle={{height: 50, borderRadius: 5, backgroundColor: '#AD40AF'}} />
                     <Text style={{marginVertical: 10, textAlign: 'center', color: '#666'}}>Or, sign up with...</Text>
                     <View style={styles2.flex}>
                         <TouchableOpacity>
