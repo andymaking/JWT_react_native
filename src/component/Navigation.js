@@ -6,14 +6,14 @@ import {AppStack} from "./AppStack";
 import {AuthContext} from "../context/AuthContext";
 import {ActivityIndicator, View} from "react-native";
 import {AppProvider} from "../context/AppContext";
+import {SplashStack} from "./SplashStack";
 
 export const Navigation = ()=>{
-
-    const Stack = createNativeStackNavigator();
 
     const dataContext = useContext(AuthContext)
     const loading = dataContext.isLoading;
     const userToken = dataContext.userToken;
+    const splashLoading = dataContext.splashLoading
 
     if (loading){
         return(
@@ -25,7 +25,10 @@ export const Navigation = ()=>{
 
     return(
         <NavigationContainer>
-            {userToken === null ? <AuthStack/> : <AppProvider><AppStack/></AppProvider>}
+            {
+                splashLoading === true ? <SplashStack/> : userToken === null ? <AuthStack/> : <AppProvider><AppStack/></AppProvider>
+            }
+
         </NavigationContainer>
     )
 }

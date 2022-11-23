@@ -28,9 +28,9 @@ const HomeScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles2.container}>
-            <Spinner visible={isLoading} />
+            <Spinner visible={isLoading} color={'#AD40AF'} size={70} />
             <View style={styles2.flex}>
-                <Text style={{fontSize: 18}}>Hello <Text>{dataContext.userToken}</Text></Text>
+                <Text style={{fontSize: 18}}>Hello <Text>{dataContext.userInfo.data.first_name} {dataContext.userInfo.data.last_name}</Text></Text>
                 <TouchableOpacity onPress={()=>navigation.openDrawer()}>
                     <Image source={require('../../assets/Images/user.png')} style={{height:30, width: 30}}/>
                 </TouchableOpacity>
